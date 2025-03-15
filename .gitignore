@@ -1,0 +1,8 @@
+# 忽略編譯產物
+target/
+
+# 忽略編譯時的編譯檔案
+*.rs.bk
+
+# 忽略 Cargo 的依賴檔案
+Cargo.lock
