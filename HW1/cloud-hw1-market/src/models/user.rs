@@ -1,10 +1,10 @@
 use std::sync::{Mutex, OnceLock};
 use std::collections::HashSet;
 
-#[derive(Debug, Clone)] 
-pub struct User {
-    pub username: String,
-}
+// #[derive(Debug, Clone)] 
+// pub struct User {
+//     pub username: String,
+// }
 
 static USERS: OnceLock<Mutex<HashSet<String>>> = OnceLock::new();
 

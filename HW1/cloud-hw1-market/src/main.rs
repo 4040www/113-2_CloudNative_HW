@@ -3,49 +3,53 @@ mod services;
 mod models;
 mod utils;
 
-use std::io::{self, BufRead, Write};
+use rustyline::DefaultEditor;
+use rustyline::error::ReadlineError;
+use std::io::{self, Write};
 
 fn main() {
-    let stdin = io::stdin();
-    let mut stdout = io::stdout();
+    let mut rl = DefaultEditor::new().unwrap();
 
-    // Main loop : read commands from stdin and execute
     loop {
-        print!("# ");
-        stdout.flush().unwrap();
+        let readline = rl.readline("# ");
 
-        let mut input = String::new();
+        match readline {
+            Ok(lines) => {
+                let trimmed = lines.trim();
+                if trimmed.is_empty() {
+                    continue;
+                }
 
-        // Read commands until an empty line is encountered
-        while let Ok(line) = stdin.lock().lines().next().unwrap() {
-            if line.trim().is_empty() {
+                for line in trimmed.lines() {
+                    let command = line.split_whitespace().next().unwrap_or("");
+                    let response = match command {
+                        "REGISTER" => commands::register::execute(line.to_string()),
+                        "CREATE_LISTING" => commands::create_listing::execute(line.to_string()),
+                        "DELETE_LISTING" => commands::delete_listing::execute(line.to_string()),
+                        "GET_LISTING" => commands::get_listing::execute(line.to_string()),
+                        "GET_CATEGORY" => commands::get_category::execute(line.to_string()),
+                        "GET_TOP_CATEGORY" => commands::get_top_category::execute(line.to_string()),
+                        _ => "Error - unknown command".to_string(),
+                    };
+
+                    println!("{}", response);
+                    io::stdout().flush().unwrap();
+                }
+
+                rl.add_history_entry(lines).unwrap();
+            }
+            Err(ReadlineError::Interrupted) => {
+                println!("CTRL-C");
                 break;
             }
-            input.push_str(&line);
-            input.push('\n');
-        }
-
-        let commands: Vec<&str> = input.trim().split('\n').collect();
-        
-        // Execute each command
-        for command in commands {
-            let trimmed = command.trim();
-            if trimmed.is_empty() {
-                continue;
+            Err(ReadlineError::Eof) => {
+                println!("CTRL-D");
+                break;
             }
-
-            let response = match trimmed.split_whitespace().next().unwrap_or("") {
-                "REGISTER" => commands::register::execute(trimmed.to_string()),
-                "CREATE_LISTING" => commands::create_listing::execute(trimmed.to_string()),
-                "DELETE_LISTING" => commands::delete_listing::execute(trimmed.to_string()),
-                "GET_LISTING" => commands::get_listing::execute(trimmed.to_string()),
-                "GET_CATEGORY" => commands::get_category::execute(trimmed.to_string()),
-                "GET_TOP_CATEGORY" => commands::get_top_category::execute(trimmed.to_string()),
-                _ => "Error - unknown command".to_string(),
-            };
-
-            println!("{}", response);
+            Err(err) => {
+                println!("Error: {:?}", err);
+                break;
+            }
         }
     }
 }
-

@@ -7,6 +7,6 @@ pub fn execute(command: String) -> String {
     }
 
     let username = parts[1];
-    let category = parts[2];
+    let category = parts[2].trim_matches('\'');
     get_category(username, category)
 }

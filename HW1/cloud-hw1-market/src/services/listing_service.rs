@@ -137,30 +137,26 @@ pub fn get_category(username: &str, category: &str) -> String {
         let listings: MutexGuard<_> = listings.lock().unwrap();
 
         // 取得該 category 下所有 listing_id
-        let sorted_listings: Vec<_> = category_data.listings.iter().collect();
+        let sorted_listings: Vec<_> = category_data.iter().collect();
         let mut response = String::new();
 
         for (listing_id, _) in sorted_listings.iter().rev() {
             // 根據 listing_id 查詢 listings
             if let Some(listing) = listings.get(listing_id) {
                 response.push_str(&format!(
-                    "{}|{}|{}|{}\n", 
+                    "{}|{}|{}|{}|{}|{}\n", 
                     listing.title, 
                     listing.description, 
                     listing.price, 
-                    listing.creation_time
+                    listing.creation_time,
+                    category,
+                    listing.username
                 ));
             }
         }
         response.trim_end().to_string() // 去除最後的換行符號
     } else {
-        // 顯示所有分類
-        let all_categories: Vec<_> = categories.keys().collect();
-        let mut response = "Available categories:\n".to_string();
-        for cat in all_categories {
-            response.push_str(&format!("{}\n", cat));
-        }
-        response
+        "Error - category not found".to_string()
     }
 }
 

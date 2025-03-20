@@ -4,7 +4,7 @@ pub fn register(username: &str) -> String {
     let users = get_users().lock().unwrap();
 
     if users.contains(username) { 
-        return "Error - user already exists".to_string();
+        return "Error - user already existing".to_string();
     }
 
     drop(users); 

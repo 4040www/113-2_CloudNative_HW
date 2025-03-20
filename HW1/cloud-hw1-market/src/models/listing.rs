@@ -21,11 +21,11 @@ pub fn get_listings() -> &'static Mutex<HashMap<u32, Listing>> {
 // Categories
 static CATEGORIES: OnceLock<Mutex<HashMap<String, BTreeMap<u32, String>>>> = OnceLock::new();  // 使用 BTreeMap 以便於排序
 
-#[derive(Debug, Clone)]
-pub struct Category {
-    pub name: String,
-    pub listings: BTreeMap<u32, String>,
-}
+// #[derive(Debug, Clone)]
+// pub struct Category {
+//     pub name: String,
+//     pub listings: BTreeMap<u32, String>,
+// }
 
 pub fn get_categories() -> &'static Mutex<HashMap<String, BTreeMap<u32, String>>> {
     CATEGORIES.get_or_init(|| Mutex::new(HashMap::new()))
