@@ -3,12 +3,12 @@ name: Rust CI
 on:
   push:
     branches:
-      - master  # 這裡可以替換成你的主要分支名稱
+      - main  # 這裡可以替換成你的主要分支名稱
       - hw1-p
       - hw1-f
   pull_request:
     branches:
-      - master  # 當有 pull request 到主分支時也會觸發 CI
+      - main  # 當有 pull request 到主分支時也會觸發 CI
       - hw1-p
       - hw1-f
 
