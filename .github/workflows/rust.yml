@@ -2,9 +2,9 @@ name: Rust CI
 
 on:
   push:
-    branches: [ master, hw1-p, hw1-f ]
+    branches: [ main, hw1-p, hw1-f ]
   pull_request:
-    branches: [ master, hw1-p, hw1-f ]
+    branches: [ main, hw1-p, hw1-f ]
 
 jobs:
   build:
