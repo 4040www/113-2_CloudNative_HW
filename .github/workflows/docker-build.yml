@@ -27,5 +27,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
+        file: ./HW1/cloud-hw1-market/Dockerfile
         push: true
         tags: 2025cloud/cloud-hw1-market:latest
+
