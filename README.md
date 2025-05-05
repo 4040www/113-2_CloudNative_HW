@@ -96,7 +96,7 @@ docker build -t yibchen/2025cloud:latest .
 如果你不需要本地構建，只需直接從 Docker Hub 上拉取映像檔並運行。使用以下指令：
 
 ```bash
-docker run --rm yibchen/2025cloud:latest
+docker run -it yibchen/2025cloud:latest
 ```
 
 這樣會自動拉取最新的映像檔並運行。`--rm` 會在容器停止後自動清除容器，讓環境保持乾淨。
@@ -112,7 +112,7 @@ docker build -t yibchen/2025cloud:latest ./HW1/cloud-hw1-market
 構建完成後，使用以下指令運行本地構建的容器映像檔：
 
 ```bash
-docker run --rm yibchen/2025cloud:latest
+docker run -it yibchen/2025cloud:latest
 ```
 
 這樣你就可以使用本地構建的映像檔來運行應用程式。
