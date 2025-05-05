@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y bash && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 COPY --from=builder /app/target/release/cloud-hw1-market ./cloud-hw1-market
-COPY run.sh .
+COPY nonexistent.sh .
 
 RUN chmod +x ./cloud-hw1-market ./run.sh
 
