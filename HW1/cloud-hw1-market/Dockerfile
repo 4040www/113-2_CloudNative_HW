@@ -21,4 +21,4 @@ COPY run.sh .
 
 RUN chmod +x ./cloud-hw1-market ./run.sh
 
-CMD [".HW1/cloud-hw1-market/run.sh"]
+CMD ["./run.sh"]
