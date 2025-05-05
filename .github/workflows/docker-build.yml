@@ -29,6 +29,6 @@ jobs:
         context: ./HW1/cloud-hw1-market
         file: ./HW1/cloud-hw1-market/Dockerfile
         push: true
-        tags: yibchen/2025cloud
+        tags: yibchen/2025cloud:latest
 
 
